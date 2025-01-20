@@ -1,41 +1,53 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './Login.css';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  function handleSubmit(e) {
     e.preventDefault();
-    // Redirigir a la página de inicio
-    navigate('/Home');
-  };
+    // Aquí puedes agregar la lógica de autenticación
+    navigate('/home');
+  }
+
+  function handlePhoneChange(e) {
+    const value = e.target.value;
+    if (/^\d*$/.test(value)) {
+      setPhone(value);
+    }
+  }
 
   return (
     <div className="login-container">
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button type="submit">Login</button>
-      </form>
+      <div className="login-box">
+        <h2>Bienvenido</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="phone">Número de teléfono</label>
+            <input
+              type="text"
+              id="phone"
+              value={phone}
+              onChange={handlePhoneChange}             
+              pattern="\d*"
+              maxLength="10"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Contraseña</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)} 
+            />
+          </div>
+          <button type="submit">Iniciar Sesión</button>
+        </form>
+      </div>
     </div>
   );
 };
